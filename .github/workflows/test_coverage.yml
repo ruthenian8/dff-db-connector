@@ -28,4 +28,4 @@ jobs:
 
       - name: build coverage file
         run: |
-          pytest --cache-clear --cov-fail-under=100 --cov=dff_db_connector tests/ > pytest-coverage.txt
+          pytest --cache-clear --cov=dff_db_connector tests/ > pytest-coverage.txt

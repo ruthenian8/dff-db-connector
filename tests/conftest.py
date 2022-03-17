@@ -16,6 +16,6 @@ def testing_file(tmpdir_factory):
     yield str(filename)
 
 
-@pytest.fixture(scope='function')
+@pytest.fixture(scope="function")
 def testing_telegram_id():
     yield "123123123"

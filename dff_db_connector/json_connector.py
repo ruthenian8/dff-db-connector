@@ -21,9 +21,9 @@ class JsonConnector(dict, DffDbConnector):
         return Context.cast(value)
 
     def __setitem__(self, key: str, value: Context) -> None:
-        
+
         value_dict = value.dict() if isinstance(value, Context) else value
-        
+
         if not isinstance(value_dict, dict):
             raise TypeError(f"The saved value should be a dict or a dict-serializeable item, not {type(value_dict)}")
 

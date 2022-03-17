@@ -55,7 +55,7 @@ def generic_test(connector_instance, testing_context, testing_telegram_id):
     # test write operations
     connector_instance[testing_telegram_id] = {"foo": "bar", "baz": "qux"}
     assert testing_telegram_id in connector_instance
-    assert len(connector_instance) == 1    
+    assert len(connector_instance) == 1
     connector_instance[testing_telegram_id] = testing_context  # overwriting a key
     assert len(connector_instance) == 1
     # test read operations
@@ -66,7 +66,7 @@ def generic_test(connector_instance, testing_context, testing_telegram_id):
     del connector_instance[testing_telegram_id]
     assert testing_telegram_id not in connector_instance
     # test `get` method
-    assert connector_instance.get(testing_telegram_id) is None    
+    assert connector_instance.get(testing_telegram_id) is None
 
 
 def test_shelve(testing_file, testing_context, testing_telegram_id):
@@ -91,7 +91,7 @@ def test_mongo(testing_context, testing_telegram_id):
         "mongodb://{}:{}@localhost:27017/{}".format(
             os.getenv("MONGO_INITDB_ROOT_USERNAME"),
             os.getenv("MONGO_INITDB_ROOT_PASSWORD"),
-            os.getenv("MONGO_INITDB_ROOT_USERNAME")
+            os.getenv("MONGO_INITDB_ROOT_USERNAME"),
         )
     )
     generic_test(connector_instance, testing_context, testing_telegram_id)
@@ -100,24 +100,15 @@ def test_mongo(testing_context, testing_telegram_id):
 @pytest.mark.skipif(REDIS_ACTIVE == False, reason="Redis server not running")
 @pytest.mark.skipif(redis_available == False, reason="Redis dependencies missing")
 def test_redis(testing_context, testing_telegram_id):
-    connector_instance = RedisConnector(
-        "redis://{}:{}@localhost:6379/{}".format(
-            "",
-            os.getenv("REDIS_PASSWORD"),
-            "0"
-        )
-    )
+    connector_instance = RedisConnector("redis://{}:{}@localhost:6379/{}".format("", os.getenv("REDIS_PASSWORD"), "0"))
     generic_test(connector_instance, testing_context, testing_telegram_id)
 
 
 @pytest.mark.skipif(POSTGRES_ACTIVE == False, reason="Postgres server not running")
 @pytest.mark.skipif(postgres_available == False, reason="Postgres dependencies missing")
 def test_postgres(testing_context, testing_telegram_id):
-    connector_instance = SqlConnector("postgresql://{}:{}@localhost:5432/{}".format(
-            os.getenv("PG_USERNAME"),
-            os.getenv("PG_PASSWORD"),
-            "test"
-        )
+    connector_instance = SqlConnector(
+        "postgresql://{}:{}@localhost:5432/{}".format(os.getenv("PG_USERNAME"), os.getenv("PG_PASSWORD"), "test")
     )
     generic_test(connector_instance, testing_context, testing_telegram_id)
 
@@ -133,9 +124,7 @@ def test_sqlite(testing_file, testing_context, testing_telegram_id):
 def test_mysql(testing_context, testing_telegram_id):
     connector_instance = SqlConnector(
         "mysql+pymysql://{}:{}@localhost:3307/{}".format(
-            os.getenv("MYSQL_USERNAME"),
-            os.getenv("MYSQL_PASSWORD"),
-            "test"
+            os.getenv("MYSQL_USERNAME"), os.getenv("MYSQL_PASSWORD"), "test"
         )
     )
     generic_test(connector_instance, testing_context, testing_telegram_id)
