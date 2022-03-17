@@ -1,3 +1,8 @@
+"""
+redis_connector
+---------------------------
+Provides the redis-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+"""
 import json
 
 try:
@@ -12,6 +17,16 @@ from df_engine.core.context import Context
 
 
 class RedisConnector(DffDbConnector):
+    """
+    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `redis` as the database backend.
+
+    Parameters
+    -----------
+
+    path: str
+        Database URI string. Example: redis://user:password@host:port
+    """
+
     def __init__(self, path: str):
         super(RedisConnector, self).__init__(path)
         if not redis_available:

@@ -1,3 +1,8 @@
+"""
+json_connector
+---------------------------
+Provides the json-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+"""
 import json
 import os
 
@@ -6,6 +11,16 @@ from df_engine.core.context import Context
 
 
 class JsonConnector(dict, DffDbConnector):
+    """
+    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `json` as the storage format.
+
+    Parameters
+    -----------
+
+    path: str
+        Target file URI. Example: 'json://file.json'
+    """
+
     def __new__(cls, path: str):
         obj = dict.__new__(cls)
         return obj

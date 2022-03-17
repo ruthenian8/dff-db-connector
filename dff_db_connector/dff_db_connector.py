@@ -1,4 +1,11 @@
-"""Main module"""
+"""
+dff_db_connector
+---------------------------
+| Base module. Provided classes:
+| Abstract connector interface :py:class:`~dff_db.connector.dff_db_connector.DffAbstractConnector`. 
+| An intermediate class to inherit from: :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`
+
+"""
 from abc import ABC, abstractmethod
 from typing import Any
 
@@ -8,7 +15,10 @@ from df_engine.core.types import ActorStage
 
 
 class DffAbstractConnector(ABC):
-    """DffDbConnector"""
+    """
+    | An abstract interface for Dff DB connectors. It includes the most essential methods of the python `dict` class.
+    | Can not be instantiated.
+    """
 
     def __init__(self) -> None:
         pass
@@ -43,6 +53,23 @@ class DffAbstractConnector(ABC):
 
 
 class DffDbConnector(DffAbstractConnector):
+    """
+    An intermediate class between the abstract connector interface,
+    :py:class:`~dff_db.connector.dff_db_connector.DffAbstractConnector`, and concrete implementations.
+
+    Parameters
+    ----------
+    path: str
+        | Parameter `path` should be set with the URI of the database.
+        | It includes a prefix and the required connection credentials.
+        | Example: postgresql://user:password@host:port/database
+        | In the case of classes that save data to hard drive instead of external databases
+        | you need to specify the location of the file, like you do in sqlite.
+        | Keep in mind that in Windows you will have to use double backslashes '\\'
+        | instead of forward slashes '/' when defining the file path.
+
+    """
+
     def __init__(self, path: str):
         prefix, _, file_path = path.partition("://")
         self.full_path = path

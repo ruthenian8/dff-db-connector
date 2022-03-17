@@ -1,3 +1,8 @@
+"""
+shelve_connector
+---------------------------
+Provides the shelve-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+"""
 from shelve import DbfilenameShelf
 import pickle
 
@@ -5,6 +10,16 @@ from .dff_db_connector import DffDbConnector
 
 
 class ShelveConnector(DbfilenameShelf, DffDbConnector):
+    """
+    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `shelve` as the driver.
+
+    Parameters
+    -----------
+
+    path: str
+        Target file URI. Example: `shelve://file.db`
+    """
+
     def __init__(self, path: str):
         DffDbConnector.__init__(self, path)
         DbfilenameShelf.__init__(self, filename=self.path, protocol=pickle.HIGHEST_PROTOCOL)

@@ -1,3 +1,8 @@
+"""
+mongo_connector
+---------------------------
+Provides the mongo-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+"""
 import json
 from functools import wraps
 from typing import Callable
@@ -15,7 +20,17 @@ from df_engine.core.context import Context
 
 
 class MongoConnector(DffDbConnector):
-    """"""
+    """
+    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `mongodb` as the database backend.
+
+    Parameters
+    -----------
+
+    path: str
+        Database URI. Example: 'mongodb://user:password@host:port/dbname'
+    collection: str
+        Name of the collection to store the data in.
+    """
 
     def __init__(self, path: str, collection: str = "context_collection"):
         super(MongoConnector, self).__init__(path)

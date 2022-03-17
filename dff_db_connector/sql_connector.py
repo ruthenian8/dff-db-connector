@@ -1,3 +1,11 @@
+"""
+sql_connector
+---------------------------
+
+| Provides the sql-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+| You can choose the backend option of your liking from mysql, postgresql, or sqlite.
+
+"""
 import json
 import importlib
 
@@ -39,6 +47,9 @@ if not sqlalchemy_available:
 
 
 def import_insert_for_dialect(dialect: str):
+    """
+    Imports the insert function into global scope depending on the chosen sqlalchemy dialect.
+    """
     global insert
     insert = getattr(
         importlib.import_module(f"sqlalchemy.dialects.{dialect}"),
@@ -47,6 +58,24 @@ def import_insert_for_dialect(dialect: str):
 
 
 class SqlConnector(DffDbConnector):
+    """
+    | Sql-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+    | Compatible with MySQL, Postgresql, Sqlite.
+
+    Parameters
+    -----------
+
+    path: str
+        Standard sqlalchemy URI string.
+        When using sqlite backend in Windows, keep in mind that you have to use double backslashes '\\'
+        instead of forward slashes '/' in the file path.
+    table_name: str
+        The name of the table to use.
+    custom_driver: bool
+        If you intend to use some other database driver instead of the recommended ones,
+        set this parameter to `True` to bypass the import checks.
+    """
+
     def __init__(self, path: str, table_name: str = "contexts", custom_driver: bool = False):
         super(SqlConnector, self).__init__(path)
 
@@ -124,6 +153,6 @@ class SqlConnector(DffDbConnector):
             if self.full_path.startswith("postgresql") and not postgres_available:
                 raise ImportError("Packages `sqlalchemy` and/or `psycopg2` are missing.")
             elif self.full_path.startswith("mysql") and not mysql_available:
-                raise ImportError("Packages `sqlalchemy` and/or `mysqlclient` are missing.")
+                raise ImportError("Packages `sqlalchemy` and/or `pymysql` are missing.")
             elif self.full_path.startswith("sqlite") and not sqlite_available:
                 raise ImportError("Package `sqlite3` is missing")

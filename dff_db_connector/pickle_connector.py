@@ -1,3 +1,8 @@
+"""
+pickle_connector
+---------------------------
+Provides the pickle-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+"""
 import pickle
 import os
 
@@ -6,7 +11,17 @@ from df_engine.core.context import Context
 
 
 class PickleConnector(DffDbConnector):
-    def __init__(self, path):
+    """
+    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `pickle` as driver.
+
+    Parameters
+    -----------
+
+    path: str
+        Target file URI. Example: 'pickle://file.pkl'
+    """
+
+    def __init__(self, path: str):
         DffDbConnector.__init__(self, path)
         self._load()
 
