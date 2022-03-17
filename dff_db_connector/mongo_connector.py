@@ -1,9 +1,9 @@
 import json
 from functools import wraps
 from typing import Callable
-from bson.objectid import ObjectId
 
 try:
+    from bson.objectid import ObjectId
     from pymongo import MongoClient
 
     mongo_available = True
