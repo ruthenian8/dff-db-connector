@@ -37,6 +37,10 @@ class DffAbstractConnector(ABC):
     def get(self, item) -> Any:
         raise NotImplementedError
 
+    @abstractmethod
+    def clear(self) -> None:
+        raise NotImplementedError
+
 
 class DffDbConnector(DffAbstractConnector):
     def __init__(self, path: str):

@@ -21,15 +21,17 @@ class JsonConnector(dict, DffDbConnector):
         return Context.cast(value)
 
     def __setitem__(self, key: str, value: Context) -> None:
-        value_dict = value.dict()
+        
+        value_dict = value.dict() if isinstance(value, Context) else value
+        
+        if not isinstance(value_dict, dict):
+            raise TypeError(f"The saved value should be a dict or a dict-serializeable item, not {type(value_dict)}")
+
         dict.__setitem__(self, key, value_dict)
         self._save()
 
     def __delitem__(self, key: str):
         dict.__delitem__(self, key)
-        self._save()
-
-    def __del__(self) -> None:
         self._save()
 
     def _save(self) -> None:
@@ -42,7 +44,6 @@ class JsonConnector(dict, DffDbConnector):
                 saved_values = json.load(file_stream)
         else:
             saved_values = dict()
-        self.update(saved_values)
-        # for key, value in saved_values.items():
-        #     if key not in self:
-        #         self[key] = value
+        for key, value in saved_values.items():
+            if key not in self:
+                self[key] = value

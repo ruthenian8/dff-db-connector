@@ -60,8 +60,14 @@ setup(
     keywords=["chatbots", "dff-db-connector"],  # Optional
     packages=find_packages(where="."),  # Required
     include_package_data=True,
-    python_requires=">=3.6, <4",
+    python_requires=">=3.5, <4",
     install_requires=requirements,
     test_suite="tests",
     tests_require=test_requirements,
+    extras_require={
+        "redis": ["redis>=4.1.2"],
+        "mongo": ["pymongo>=4.0.2"],
+        "pg": ["psycopg2>=2.9.2", "sqlalchemy>=1.4.27"],
+        "mysql": ["pymysql>=1.0.2", "cryptography-36.0.2"],
+    },
 )

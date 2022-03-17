@@ -5,45 +5,41 @@ from .dff_db_connector import DffDbConnector
 from df_engine.core.context import Context
 
 
-class PickleConnector(dict, DffDbConnector):
-    def __new__(cls, path: str):
-        obj = dict.__new__(cls)
-        return obj
-
-    def __init__(self, path: str):
+class PickleConnector(DffDbConnector):
+    def __init__(self, path):
         DffDbConnector.__init__(self, path)
-        if not os.path.isfile(self.path):
-            open(self.path, "a").close()
+        self._load()
+
+    def __len__(self):
+        return len(self.dict)
+
+    def __setitem__(self, key: str, item: Context) -> None:
+        self.dict.__setitem__(key, item)
+        self._save()
 
     def __getitem__(self, key: str) -> Context:
         self._load()
-        value = dict.__getitem__(self, key)
-        return Context.cast(value)
+        return self.dict.__getitem__(key)
 
-    def __setitem__(self, key: str, value: Context) -> None:
-        if isinstance(value, Context):
-            value_dict = value.dict()
-        dict.__setitem__(self, key, value_dict)
+    def __delitem__(self, key: str) -> None:
+        self.dict.__delitem__(key)
         self._save()
 
-    def __delitem__(self, key: str):
-        dict.__delitem__(self, key)
-        self._save()
+    def __contains__(self, key: str) -> bool:
+        self._load()
+        return self.dict.__contains__(key)
 
-    def __del__(self) -> None:
-        self._save()
+    def clear(self) -> None:
+        self.dict.clear()
 
     def _save(self) -> None:
-        with open(self.path, "wb+") as file_stream:
-            pickle.dump(self, file_stream, protocol=pickle.HIGHEST_PROTOCOL)
-
-    def __getnewargs_ex__(self):
-        return ((self.full_path,), dict())
+        with open(self.path, "wb+") as file:
+            pickle.dump(self.dict, file)
 
     def _load(self) -> None:
-        if os.stat(self.path).st_size > 0:
-            with open(self.path, "rb") as file_stream:
-                saved_values = pickle.load(file_stream)
+        if not os.path.isfile(self.path) or os.stat(self.path).st_size == 0:
+            self.dict = dict()
+            open(self.path, "a").close()
         else:
-            saved_values = dict()
-        self.update(saved_values)
+            with open(self.path, "rb") as file:
+                self.dict = pickle.load(file)
