@@ -55,7 +55,7 @@ def handle_request(request):
         context = Context(id=user_id)
     else:
         context = db[user_id]
-    new_context = Actor(context)
+    new_context = actor(context)
     db[user_id] = new_context
     assert user_id in db
     return new_context.last_response
