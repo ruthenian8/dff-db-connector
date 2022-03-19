@@ -20,8 +20,7 @@ services:
   redis:
     image: redis
     restart: unless-stopped
-    command:
-        - requirepass=$REDIS_PASSWORD
+    command: --requirepass $REDIS_PASSWORD
     ports:
       - '6379:6379'
   mongo:
@@ -30,5 +29,6 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: $MONGO_INITDB_ROOT_USERNAME
       MONGO_INITDB_ROOT_PASSWORD: $MONGO_INITDB_ROOT_PASSWORD
+      MONGO_INITDB_DATABASE: $MONGO_INITDB_ROOT_USERNAME
     ports:
       - '27017:27017'
