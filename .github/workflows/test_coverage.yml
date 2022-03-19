@@ -26,14 +26,13 @@ jobs:
       MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
     steps:
-      - name: copy context
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v2
 
       - name: Docker login
-        uses: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+        run: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
 
       - name: Build images
-        uses: docker-compose build
+        run: docker-compose build
 
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
