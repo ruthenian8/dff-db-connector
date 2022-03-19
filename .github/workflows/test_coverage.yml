@@ -12,8 +12,28 @@ jobs:
         os: [ubuntu-latest, macOS-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
+    env:
+      COMPOSE_FILE: docker-compose.yml
+      DOCKER_USER: ${{ secrets.DOCKER_USER }}
+      DOCKER_PASS: ${{ secrets.DOCKER_PASSWORD }}
+      MYSQL_USERNAME: root
+      MYSQL_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+      MYSQL_DATABASE: test
+      PG_USERNAME: pguser
+      PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
+      REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
+      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
+
     steps:
-      - uses: actions/checkout@v2
+      - name: copy context
+        uses: actions/checkout@v2
+
+      - name: Docker login
+        uses: docker login -u $DOCKER_USER -p $DOCKER_PASSWORD
+
+      - name: Build images
+        uses: docker-compose build
 
       - name: set up python ${{ matrix.python-version }}
         uses: actions/setup-python@v2
@@ -23,6 +43,7 @@ jobs:
       - name: install dependencies
         run: |
           python -m pip install --upgrade pip
+          python -m pip install -r requirements_dev.txt
           python -m pip install -e .
           python -m pip install -r requirements_test.txt
 
