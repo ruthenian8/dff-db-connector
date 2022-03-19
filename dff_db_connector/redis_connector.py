@@ -12,7 +12,7 @@ try:
 except ImportError:
     redis_available = False
 
-from .dff_db_connector import DffDbConnector
+from .dff_db_connector import DffDbConnector, threadsafe_method
 from df_engine.core.context import Context
 
 
@@ -33,9 +33,11 @@ class RedisConnector(DffDbConnector):
             raise ImportError("`redis` package is missing")
         self._redis = Redis.from_url(self.full_path)
 
+    @threadsafe_method
     def __contains__(self, key: str) -> bool:
         return self._redis.exists(key)
 
+    @threadsafe_method
     def __setitem__(self, key: str, value: Context) -> None:
         if isinstance(value, Context):
             value = value.dict()
@@ -45,6 +47,7 @@ class RedisConnector(DffDbConnector):
 
         self._redis.set(key, json.dumps(value, ensure_ascii=False))
 
+    @threadsafe_method
     def __getitem__(self, key: str) -> Context:
         result = self._redis.get(key)
         if result:
@@ -52,11 +55,14 @@ class RedisConnector(DffDbConnector):
             return Context.cast(result_dict)
         raise KeyError(f"No entry for key {key}.")
 
+    @threadsafe_method
     def __delitem__(self, key: str) -> None:
         self._redis.delete(key)
 
+    @threadsafe_method
     def __len__(self) -> int:
         return self._redis.dbsize()
 
+    @threadsafe_method
     def clear(self) -> None:
         self._redis.flushdb()

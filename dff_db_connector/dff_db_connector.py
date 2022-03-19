@@ -6,8 +6,9 @@ dff_db_connector
 | An intermediate class to inherit from: :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`
 
 """
+import threading
 from abc import ABC, abstractmethod
-from typing import Any
+from typing import Any, Callable
 
 from pydantic import validate_arguments
 from df_engine.core import Context, Actor
@@ -74,6 +75,7 @@ class DffDbConnector(DffAbstractConnector):
         prefix, _, file_path = path.partition("://")
         self.full_path = path
         self.path = file_path
+        self._lock = threading.Lock()
 
     def get(self, key: str, default=None) -> Any:
         try:
@@ -81,3 +83,15 @@ class DffDbConnector(DffAbstractConnector):
         except KeyError:
             value = default
         return value
+
+
+def threadsafe_method(func: Callable):
+    """
+    A decorator that makes sure methods of an object instance are threadsafe.
+    """
+
+    def _synchronized(self, *args, **kwargs):
+        with self._lock:
+            return func(self, *args, **kwargs)
+
+    return _synchronized

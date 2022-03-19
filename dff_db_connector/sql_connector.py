@@ -9,7 +9,7 @@ sql_connector
 import json
 import importlib
 
-from .dff_db_connector import DffDbConnector
+from .dff_db_connector import DffDbConnector, threadsafe_method
 from df_engine.core.context import Context
 
 try:
@@ -95,6 +95,7 @@ class SqlConnector(DffDbConnector):
         self.dialect: str = self.engine.dialect.name
         import_insert_for_dialect(self.dialect)
 
+    @threadsafe_method
     def __setitem__(self, key: str, value: Context) -> None:
         if isinstance(value, Context):
             value = value.dict()
@@ -108,6 +109,7 @@ class SqlConnector(DffDbConnector):
         with self.engine.connect() as conn:
             conn.execute(update_stmt)
 
+    @threadsafe_method
     def __getitem__(self, key: str) -> Context:
         stmt = select(self.table.c.context).where(self.table.c.id == key)
         with self.engine.connect() as conn:
@@ -117,23 +119,27 @@ class SqlConnector(DffDbConnector):
                 return Context.cast(row[0])
         raise KeyError
 
+    @threadsafe_method
     def __delitem__(self, key: str) -> None:
         stmt = delete(self.table).where(self.table.c.id == key)
         with self.engine.connect() as conn:
             conn.execute(stmt)
 
+    @threadsafe_method
     def __contains__(self, key: str) -> bool:
         stmt = select(self.table.c.context).where(self.table.c.id == key)
         with self.engine.connect() as conn:
             result = conn.execute(stmt)
             return bool(result.fetchone())
 
+    @threadsafe_method
     def __len__(self) -> int:
         stmt = select([func.count()]).select_from(self.table)
         with self.engine.connect() as conn:
             result = conn.execute(stmt)
             return result.fetchone()[0]
 
+    @threadsafe_method
     def clear(self) -> None:
         stmt = delete(self.table).where(self.table.c.id > 0)
         with self.engine.connect() as conn:

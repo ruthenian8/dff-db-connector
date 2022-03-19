@@ -1,5 +1,6 @@
 version: "3.9"
 services:
+
   mysql:
     image: mysql:latest
     restart: unless-stopped
@@ -8,6 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: $MYSQL_PASSWORD
     ports:
       - '3307:3306'
+
   psql:
     image: postgres:latest
     restart: unless-stopped
@@ -16,14 +18,17 @@ services:
       POSTGRES_PASSWORD: $PG_PASSWORD
       POSTGRES_DB: test
     ports:
-      - '5432:5432'    
+      - '5432:5432'
+
   redis:
     image: redis:latest
     restart: unless-stopped
-    args:
-      - requirepass=$REDIS_PASSWORD
+    build:
+      args:
+        - requirepass=$REDIS_PASSWORD
     ports:
-      - '6379:6379'    
+      - '6379:6379'
+
   mongo:
     image: mongo:latest
     restart: unless-stopped

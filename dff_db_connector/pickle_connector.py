@@ -6,7 +6,7 @@ Provides the pickle-based version of the :py:class:`~dff_db.connector.dff_db_con
 import pickle
 import os
 
-from .dff_db_connector import DffDbConnector
+from .dff_db_connector import DffDbConnector, threadsafe_method
 from df_engine.core.context import Context
 
 
@@ -25,25 +25,31 @@ class PickleConnector(DffDbConnector):
         DffDbConnector.__init__(self, path)
         self._load()
 
+    @threadsafe_method
     def __len__(self):
         return len(self.dict)
 
+    @threadsafe_method
     def __setitem__(self, key: str, item: Context) -> None:
         self.dict.__setitem__(key, item)
         self._save()
 
+    @threadsafe_method
     def __getitem__(self, key: str) -> Context:
         self._load()
         return self.dict.__getitem__(key)
 
+    @threadsafe_method
     def __delitem__(self, key: str) -> None:
         self.dict.__delitem__(key)
         self._save()
 
+    @threadsafe_method
     def __contains__(self, key: str) -> bool:
         self._load()
         return self.dict.__contains__(key)
 
+    @threadsafe_method
     def clear(self) -> None:
         self.dict.clear()
 
