@@ -9,7 +9,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: ["3.6", "3.7", "3.8", "3.9"]
-        os: [ubuntu-latest, windows-latest]
+        os: [ubuntu-latest, macOS-latest, windows-latest]
 
     runs-on: ${{ matrix.os }}
     env:
@@ -28,10 +28,16 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Build images
+      - name: Build images ubuntu
+        if: matrix.os == 'ubuntu-latest'
         run: docker-compose -f $COMPOSE_FILE up -d
 
+      - name: Build images windows
+        if: matrix.os == 'windows-latest'
+        run: docker-compose up
+
       - name: Check running containers
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'windows-latest'
         run: docker ps -a
 
       - name: set up python ${{ matrix.python-version }}
