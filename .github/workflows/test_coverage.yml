@@ -22,7 +22,7 @@ jobs:
       PG_USERNAME: pguser
       PG_PASSWORD: ${{ secrets.PG_PASSWORD }}
       REDIS_PASSWORD: ${{ secrets.REDIS_PASSWORD }}
-      MONGO_INITDB_ROOT_USERNAME: mongouser
+      MONGO_INITDB_ROOT_USERNAME: admin
       MONGO_INITDB_ROOT_PASSWORD: ${{ secrets.MONGO_PASSWORD }}
 
     steps:

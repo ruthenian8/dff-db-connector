@@ -1,6 +1,7 @@
 import pytest
 import socket
 import os
+from platform import system
 
 from df_engine.core.context import Context
 
@@ -115,7 +116,9 @@ def test_postgres(testing_context, testing_telegram_id):
 
 @pytest.mark.skipif(sqlite_available == False, reason="Sqlite dependencies missing")
 def test_sqlite(testing_file, testing_context, testing_telegram_id):
-    connector_instance = SqlConnector(f"sqlite:////{testing_file}")
+    separator = "///" if system() == "Windows" else "////"
+    connector_instance = SqlConnector(f"sqlite:{separator}{testing_file}")
+
     generic_test(connector_instance, testing_context, testing_telegram_id)
 
 

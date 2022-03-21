@@ -27,6 +27,10 @@ class JsonConnector(dict, DffDbConnector):
 
     def __init__(self, path: str):
         DffDbConnector.__init__(self, path)
+        dirs = self.path.rsplit('/', maxsplit=1)[0]
+        if dirs and not os.path.isdir(dirs):
+            os.makedirs(dirs, exist_ok=True)
+
         if not os.path.isfile(self.path):
             open(self.path, "a").close()
 

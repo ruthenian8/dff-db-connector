@@ -13,7 +13,8 @@ def testing_context():
 def testing_file(tmpdir_factory):
     filename = tmpdir_factory.mktemp("data").join("file.db")
     # Path(filename).touch()
-    yield str(filename)
+    string_file = str(filename)
+    yield string_file
 
 
 @pytest.fixture(scope="function")
