@@ -57,6 +57,7 @@ class MongoConnector(DffDbConnector):
 
         value_dict.update(new_key)
         self.collection.replace_one(new_key, value_dict, upsert=True)
+        self.cache_clear()
 
     @threadsafe_method
     def __getitem__(self, key: str) -> Context:
@@ -71,6 +72,7 @@ class MongoConnector(DffDbConnector):
     def __delitem__(self, key: str) -> None:
         key = self._adjust_key(key)
         self.collection.delete_one(key)
+        self.cache_clear()
 
     @threadsafe_method
     def __contains__(self, key: str) -> bool:
@@ -84,3 +86,4 @@ class MongoConnector(DffDbConnector):
     @threadsafe_method
     def clear(self) -> None:
         self.collection.delete_many(dict())
+        self.cache_clear()

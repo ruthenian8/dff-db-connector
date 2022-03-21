@@ -46,6 +46,7 @@ class RedisConnector(DffDbConnector):
             raise TypeError(f"The saved value should be a dict or a dict-serializeable item, not {type(value)}")
 
         self._redis.set(key, json.dumps(value, ensure_ascii=False))
+        self.cache_clear()
 
     @threadsafe_method
     def __getitem__(self, key: str) -> Context:
@@ -58,6 +59,7 @@ class RedisConnector(DffDbConnector):
     @threadsafe_method
     def __delitem__(self, key: str) -> None:
         self._redis.delete(key)
+        self.cache_clear()
 
     @threadsafe_method
     def __len__(self) -> int:
@@ -66,3 +68,4 @@ class RedisConnector(DffDbConnector):
     @threadsafe_method
     def clear(self) -> None:
         self._redis.flushdb()
+        self.cache_clear()

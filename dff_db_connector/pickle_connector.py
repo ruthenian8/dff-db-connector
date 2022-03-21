@@ -33,6 +33,7 @@ class PickleConnector(DffDbConnector):
     @threadsafe_method
     def __setitem__(self, key: str, item: Context) -> None:
         self.dict.__setitem__(key, item)
+        self.cache_clear()
         self._save()
 
     @threadsafe_method
@@ -43,6 +44,7 @@ class PickleConnector(DffDbConnector):
     @threadsafe_method
     def __delitem__(self, key: str) -> None:
         self.dict.__delitem__(key)
+        self.cache_clear()
         self._save()
 
     @threadsafe_method
@@ -53,6 +55,7 @@ class PickleConnector(DffDbConnector):
     @threadsafe_method
     def clear(self) -> None:
         self.dict.clear()
+        self.cache_clear()
 
     def _save(self) -> None:
         with open(self.path, "wb+") as file:

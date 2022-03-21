@@ -5,6 +5,7 @@ Provides the json-based version of the :py:class:`~dff_db.connector.dff_db_conne
 """
 import json
 import os
+from functools import lru_cache
 
 from .dff_db_connector import DffDbConnector, threadsafe_method
 from df_engine.core.context import Context
@@ -31,6 +32,8 @@ class JsonConnector(dict, DffDbConnector):
         if not os.path.isfile(self.path):
             open(self.path, "a").close()
 
+        self.get = lru_cache(maxsize=1)(self.get)
+
     @threadsafe_method
     def __getitem__(self, key: str) -> Context:
         self._load()
@@ -46,23 +49,29 @@ class JsonConnector(dict, DffDbConnector):
             raise TypeError(f"The saved value should be a dict or a dict-serializeable item, not {type(value_dict)}")
 
         dict.__setitem__(self, key, value_dict)
+        self.cache_clear()
         self._save()
 
     @threadsafe_method
     def __delitem__(self, key: str):
         dict.__delitem__(self, key)
+        self.cache_clear()
         self._save()
+
+    @threadsafe_method
+    def clear(self):
+        self.cache_clear()
+        dict.clear(self)
 
     def _save(self) -> None:
         with open(self.path, "w+", encoding="utf-8") as file_stream:
             json.dump(self, file_stream, ensure_ascii=False)
 
     def _load(self) -> None:
-        if os.stat(self.path).st_size > 0:
-            with open(self.path, "r", encoding="utf-8") as file_stream:
-                saved_values = json.load(file_stream)
-        else:
-            saved_values = dict()
+        if os.stat(self.path).st_size == 0:
+            return
+        with open(self.path, "r", encoding="utf-8") as file_stream:
+            saved_values = json.load(file_stream)
         for key, value in saved_values.items():
             if key not in self:
                 self[key] = value
