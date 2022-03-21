@@ -23,9 +23,6 @@ class ShelveConnector(DbfilenameShelf, DffDbConnector):
 
     def __init__(self, path: str):
         DffDbConnector.__init__(self, path)
-        dirs = self.path.rsplit('/', maxsplit=1)[0]
-        if dirs and not os.path.isdir(dirs):
-            os.makedirs(dirs, exist_ok=True)
 
         DbfilenameShelf.__init__(self, filename=self.path, protocol=pickle.HIGHEST_PROTOCOL)
 

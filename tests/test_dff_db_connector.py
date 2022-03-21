@@ -88,6 +88,9 @@ def test_pickle(testing_file, testing_context, testing_telegram_id):
 @pytest.mark.skipif(MONGO_ACTIVE == False, reason="Mongodb server not running")
 @pytest.mark.skipif(mongo_available == False, reason="Mongodb dependencies missing")
 def test_mongo(testing_context, testing_telegram_id):
+    if system() == "Windows":
+        pytest.skip()
+
     connector_instance = MongoConnector(
         "mongodb://{}:{}@localhost:27017/{}".format(
             os.getenv("MONGO_INITDB_ROOT_USERNAME"),
