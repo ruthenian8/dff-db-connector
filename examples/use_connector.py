@@ -19,7 +19,7 @@ plot = {
             TRANSITIONS: {
                 ("root", "start"): cnd.true()
             }
-        }
+        },
         "hello": {
             RESPONSE: "Long time no see",
             TRANSITIONS: {

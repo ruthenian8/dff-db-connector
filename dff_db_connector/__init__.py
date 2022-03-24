@@ -3,7 +3,6 @@
 from .json_connector import JsonConnector
 from .pickle_connector import PickleConnector
 from .shelve_connector import ShelveConnector
-from .redis_connector import RedisConnector, redis_available
 from .dff_db_connector import DffDbConnector, DffAbstractConnector
 from .sql_connector import SqlConnector, postgres_available, mysql_available, sqlite_available
 from .redis_connector import RedisConnector, redis_available
