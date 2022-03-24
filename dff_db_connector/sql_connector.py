@@ -81,18 +81,23 @@ class SqlConnector(DffDbConnector):
 
         self._check_availability(custom_driver)
         self.engine = create_engine(self.full_path)
+        self.dialect: str = self.engine.dialect.name
+
+        id_column_args = {"primary_key": True}
+        if self.dialect == "sqlite":
+            id_column_args["sqlite_on_conflict_primary_key"] = "REPLACE"
+
         self.metadata = MetaData()
         self.table = Table(
             table_name,
             self.metadata,
-            Column("id", Integer, primary_key=True),
+            Column("id", Integer, **id_column_args),
             Column("context", JSON),  # column for storing serialized contexts
         )
 
         if not inspect(self.engine).has_table(self.table.name):  # create table if it does not exist
             self.table.create(self.engine)
 
-        self.dialect: str = self.engine.dialect.name
         import_insert_for_dialect(self.dialect)
 
     @threadsafe_method
@@ -149,7 +154,9 @@ class SqlConnector(DffDbConnector):
         self.cache_clear()
 
     def _get_update_stmt(self, insert_stmt):
-        if self.dialect == "mysql":
+        if self.dialect == "sqlite":
+            return insert_stmt
+        elif self.dialect == "mysql":
             update_stmt = insert_stmt.on_duplicate_key_update(context=insert_stmt.inserted.context)
         else:
             update_stmt = insert_stmt.on_conflict_do_update(

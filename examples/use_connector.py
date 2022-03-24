@@ -8,24 +8,9 @@ from dff_db_connector import JsonConnector
 
 plot = {
     "root": {
-        "start": {
-            RESPONSE: "Hi",
-            TRANSITIONS: {
-                ("root", "hello"): cnd.true()
-            }
-        },
-        "fallback": {
-            RESPONSE: "Bye",
-            TRANSITIONS: {
-                ("root", "start"): cnd.true()
-            }
-        }
-        "hello": {
-            RESPONSE: "Long time no see",
-            TRANSITIONS: {
-                ("root", "fallback"): cnd.true()
-            }
-        }
+        "start": {RESPONSE: "Hi", TRANSITIONS: {("root", "hello"): cnd.true()}},
+        "fallback": {RESPONSE: "Bye", TRANSITIONS: {("root", "start"): cnd.true()}},
+        "hello": {RESPONSE: "Long time no see", TRANSITIONS: {("root", "fallback"): cnd.true()}},
     }
 }
 
@@ -34,6 +19,7 @@ app = Flask(__name__)
 connector = JsonConnector("json://file.json")
 
 actor = Actor(plot, start_label=("root", "start"), fallback_label=("root", "fallback"))
+
 
 @app.route("/chat", methods=["POST"])
 def respond():
@@ -48,4 +34,4 @@ def respond():
 
 
 if __name__ == "__main__":
-    app.run(host='localhost', port=5000)
+    app.run(host="localhost", port=5000)
