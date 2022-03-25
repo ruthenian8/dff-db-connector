@@ -113,7 +113,6 @@ class SqlConnector(DffDbConnector):
 
         with self.engine.connect() as conn:
             conn.execute(update_stmt)
-        self.cache_clear()
 
     @threadsafe_method
     def __getitem__(self, key: str) -> Context:
@@ -130,7 +129,6 @@ class SqlConnector(DffDbConnector):
         stmt = delete(self.table).where(self.table.c.id == key)
         with self.engine.connect() as conn:
             conn.execute(stmt)
-        self.cache_clear()
 
     @threadsafe_method
     def __contains__(self, key: str) -> bool:
@@ -151,7 +149,6 @@ class SqlConnector(DffDbConnector):
         stmt = delete(self.table).where(self.table.c.id > 0)
         with self.engine.connect() as conn:
             conn.execute(stmt)
-        self.cache_clear()
 
     def _get_update_stmt(self, insert_stmt):
         if self.dialect == "sqlite":

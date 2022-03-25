@@ -9,7 +9,6 @@ dff_db_connector
 import threading
 from abc import ABC, abstractmethod
 from typing import Any, Callable
-from functools import lru_cache
 
 from pydantic import validate_arguments
 from df_engine.core import Context, Actor
@@ -77,9 +76,6 @@ class DffDbConnector(DffAbstractConnector):
         self.full_path = path
         self.path = file_path
         self._lock = threading.Lock()
-        self.get = lru_cache(maxsize=1)(self.get)
-        # Needed, because multiple functions may need to extract the context.
-        # Size = 1, since one and the same value will be queried during a single turn.
 
     def get(self, key: str, default=None) -> Any:
         try:
@@ -87,9 +83,6 @@ class DffDbConnector(DffAbstractConnector):
         except KeyError:
             value = default
         return value
-
-    def cache_clear(self):
-        self.get.cache_clear
 
 
 def threadsafe_method(func: Callable):

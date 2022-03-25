@@ -7,7 +7,9 @@ import os
 import pickle
 from shelve import DbfilenameShelf
 
-from .dff_db_connector import DffDbConnector
+from df_engine.core import Context
+
+from .dff_db_connector import DffDbConnector, threadsafe_method
 
 
 class ShelveConnector(DbfilenameShelf, DffDbConnector):

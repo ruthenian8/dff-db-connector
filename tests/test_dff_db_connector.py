@@ -5,21 +5,14 @@ from platform import system
 
 from df_engine.core.context import Context
 
-from dff_db_connector import (
-    DffDbConnector,
-    DffAbstractConnector,
-    JsonConnector,
-    PickleConnector,
-    ShelveConnector,
-    RedisConnector,
-    SqlConnector,
-    MongoConnector,
-    postgres_available,
-    mysql_available,
-    sqlite_available,
-    redis_available,
-    mongo_available,
-)
+from dff_db_connector.json_connector import JsonConnector
+from dff_db_connector.pickle_connector import PickleConnector
+from dff_db_connector.shelve_connector import ShelveConnector
+from dff_db_connector.dff_db_connector import DffDbConnector, DffAbstractConnector
+from dff_db_connector.sql_connector import SqlConnector, postgres_available, mysql_available, sqlite_available
+from dff_db_connector.redis_connector import RedisConnector, redis_available
+from dff_db_connector.mongo_connector import MongoConnector, mongo_available
+from dff_db_connector import connector_factory
 
 
 def ping_localhost(port: int, timeout=3):
@@ -43,10 +36,6 @@ POSTGRES_ACTIVE = ping_localhost(5432)
 MYSQL_ACTIVE = ping_localhost(3307)
 
 
-def test_main():
-    assert issubclass(DffDbConnector, DffAbstractConnector)
-
-
 def generic_test(connector_instance, testing_context, testing_telegram_id):
     assert isinstance(connector_instance, DffDbConnector)
     assert isinstance(connector_instance, DffAbstractConnector)
@@ -68,6 +57,12 @@ def generic_test(connector_instance, testing_context, testing_telegram_id):
     assert testing_telegram_id not in connector_instance
     # test `get` method
     assert connector_instance.get(testing_telegram_id) is None
+
+
+def test_main(testing_file, testing_context, testing_telegram_id):
+    assert issubclass(DffDbConnector, DffAbstractConnector)
+    connector_instance = connector_factory(f"json://{testing_file}")
+    generic_test(connector_instance, testing_context, testing_telegram_id)
 
 
 def test_shelve(testing_file, testing_context, testing_telegram_id):
