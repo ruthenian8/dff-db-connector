@@ -7,11 +7,11 @@ from df_engine import conditions as cnd
 from df_engine.core import Context, Actor
 from df_engine.core.keywords import RESPONSE, TRANSITIONS
 
-from dff_db_connector import connector_factory
+from df_db_connector import connector_factory
 
 logger = logging.getLogger(__name__)
 
-plot = {
+script = {
     "greeting_flow": {
         "start_node": {  # This is an initial node, it doesn't need a `RESPONSE`
             RESPONSE: "",
@@ -37,7 +37,7 @@ plot = {
     }
 }
 
-actor = Actor(plot, start_label=("greeting_flow", "start_node"), fallback_label=("greeting_flow", "fallback_node"))
+actor = Actor(script, start_label=("greeting_flow", "start_node"), fallback_label=("greeting_flow", "fallback_node"))
 
 connector = connector_factory("json://file.json")
 # You can import any other connector using this factory:

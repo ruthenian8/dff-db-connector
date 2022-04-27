@@ -42,5 +42,5 @@ def connector_factory(path: str, **kwargs):
     For more information, see the function doc:\n{connector_factory.__doc__}
     """
     _class, module = mapping[prefix]["class"], mapping[prefix]["module"]
-    target_class = getattr(importlib.import_module(f".{module}", package="dff_db_connector"), _class)
+    target_class = getattr(importlib.import_module(f".{module}", package="df_db_connector"), _class)
     return target_class(path, **kwargs)

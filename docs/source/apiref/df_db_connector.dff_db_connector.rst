@@ -1,7 +1,7 @@
-dff\_db\_connector.dff\_db\_connector module
+df\_db\_connector.df\_db\_connector module
 ============================================
 
-.. automodule:: dff_db_connector.dff_db_connector
+.. automodule:: df_db_connector.df_db_connector
    :members:
    :undoc-members:
    :show-inheritance:

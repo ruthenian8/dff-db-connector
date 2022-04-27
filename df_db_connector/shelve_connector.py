@@ -1,7 +1,7 @@
 """
 shelve_connector
 ---------------------------
-Provides the shelve-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+Provides the shelve-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
 """
 import os
 import pickle
@@ -9,12 +9,12 @@ from shelve import DbfilenameShelf
 
 from df_engine.core import Context
 
-from .dff_db_connector import DffDbConnector, threadsafe_method
+from .df_db_connector import DFDbConnector, threadsafe_method
 
 
-class ShelveConnector(DbfilenameShelf, DffDbConnector):
+class ShelveConnector(DbfilenameShelf, DFDbConnector):
     """
-    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `shelve` as the driver.
+    Implements :py:class:`~df_db.connector.df_db_connector.DFDbConnector` with `shelve` as the driver.
 
     Parameters
     -----------
@@ -24,7 +24,7 @@ class ShelveConnector(DbfilenameShelf, DffDbConnector):
     """
 
     def __init__(self, path: str):
-        DffDbConnector.__init__(self, path)
+        DFDbConnector.__init__(self, path)
 
         DbfilenameShelf.__init__(self, filename=self.path, protocol=pickle.HIGHEST_PROTOCOL)
 

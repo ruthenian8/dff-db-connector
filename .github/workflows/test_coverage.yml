@@ -51,12 +51,12 @@ jobs:
       - name: build coverage ubuntu
         if: matrix.os == 'ubuntu-latest'
         run: |
-          python -m pytest --cov-fail-under=80 --cache-clear --tb=long -vv --cov=dff_db_connector tests/ 2>&1 | tee pytest-coverage.txt
+          python -m pytest --cov-fail-under=80 --cache-clear --tb=long -vv --cov=df_db_connector tests/ 2>&1 | tee pytest-coverage.txt
 
       - name: build coverage non-linux
         if: matrix.os != 'ubuntu-latest'
         run: |
-          python -m pytest --cache-clear --tb=long -vv --cov=dff_db_connector tests/ 2>&1 | tee pytest-coverage.txt
+          python -m pytest --cache-clear --tb=long -vv --cov=df_db_connector tests/ 2>&1 | tee pytest-coverage.txt
       
       - name: stop containers
         if: matrix.os == 'ubuntu-latest'

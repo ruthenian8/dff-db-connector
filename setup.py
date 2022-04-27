@@ -33,12 +33,12 @@ test_requirements = parse_requirements("requirements_test.txt")
 
 
 setup(
-    name="dff-db-connector",
+    name="df-db-connector",
     version="0.1",
     description=description,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ruthenian8/dff-db-connector",
+    url="https://github.com/ruthenian8/df-db-connector",
     author="Daniil Ignatiev",
     author_email="ruthenian8@gmail.com",
     classifiers=[  # Optional
@@ -57,7 +57,7 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3 :: Only",
     ],
-    keywords=["chatbots", "dff-db-connector"],  # Optional
+    keywords=["chatbots", "df-db-connector"],  # Optional
     packages=find_packages(where="."),  # Required
     include_package_data=True,
     python_requires=">=3.5, <4",

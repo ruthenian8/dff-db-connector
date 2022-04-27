@@ -1,18 +1,18 @@
 """
 json_connector
 ---------------------------
-Provides the json-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+Provides the json-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
 """
 import json
 import os
 
-from .dff_db_connector import DffDbConnector, threadsafe_method
+from .df_db_connector import DFDbConnector, threadsafe_method
 from df_engine.core.context import Context
 
 
-class JsonConnector(dict, DffDbConnector):
+class JsonConnector(dict, DFDbConnector):
     """
-    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `json` as the storage format.
+    Implements :py:class:`~df_db.connector.df_db_connector.DFDbConnector` with `json` as the storage format.
 
     Parameters
     -----------
@@ -26,7 +26,7 @@ class JsonConnector(dict, DffDbConnector):
         return obj
 
     def __init__(self, path: str):
-        DffDbConnector.__init__(self, path)
+        DFDbConnector.__init__(self, path)
 
         if not os.path.isfile(self.path):
             open(self.path, "a").close()

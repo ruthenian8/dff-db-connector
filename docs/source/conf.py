@@ -18,7 +18,7 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 
-project = "Dff DB Connector"
+project = "DF DB Connector"
 copyright = "Daniil Ignatiev"
 author = "Daniil Ignatiev"
 

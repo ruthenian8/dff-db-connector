@@ -5,9 +5,9 @@ from df_engine.core.keywords import TRANSITIONS, RESPONSE
 from df_engine import conditions as cnd
 from df_engine import responses as rsp
 
-from dff_db_connector import connector_factory
+from df_db_connector import connector_factory
 
-plot = {
+script = {
     "greeting_flow": {
         "start_node": {  # This is an initial node, it doesn't need a `RESPONSE`
             RESPONSE: "",
@@ -37,7 +37,7 @@ app = Flask(__name__)
 
 connector = connector_factory("json://file.json")
 
-actor = Actor(plot, start_label=("greeting_flow", "start_node"), fallback_label=("greeting_flow", "fallback_node"))
+actor = Actor(script, start_label=("greeting_flow", "start_node"), fallback_label=("greeting_flow", "fallback_node"))
 
 
 @app.route("/chat", methods=["GET", "POST"])

@@ -1,9 +1,9 @@
 """
-dff_db_connector
+df_db_connector
 ---------------------------
 | Base module. Provided classes:
-| Abstract connector interface :py:class:`~dff_db.connector.dff_db_connector.DffAbstractConnector`. 
-| An intermediate class to inherit from: :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`
+| Abstract connector interface :py:class:`~df_db.connector.df_db_connector.DFAbstractConnector`. 
+| An intermediate class to inherit from: :py:class:`~df_db.connector.df_db_connector.DFDbConnector`
 
 """
 import threading
@@ -15,9 +15,9 @@ from df_engine.core import Context, Actor
 from df_engine.core.types import ActorStage
 
 
-class DffAbstractConnector(ABC):
+class DFAbstractConnector(ABC):
     """
-    | An abstract interface for Dff DB connectors. It includes the most essential methods of the python `dict` class.
+    | An abstract interface for DF DB connectors. It includes the most essential methods of the python `dict` class.
     | Can not be instantiated.
     """
 
@@ -53,10 +53,10 @@ class DffAbstractConnector(ABC):
         raise NotImplementedError
 
 
-class DffDbConnector(DffAbstractConnector):
+class DFDbConnector(DFAbstractConnector):
     """
     An intermediate class between the abstract connector interface,
-    :py:class:`~dff_db.connector.dff_db_connector.DffAbstractConnector`, and concrete implementations.
+    :py:class:`~df_db.connector.df_db_connector.DFAbstractConnector`, and concrete implementations.
 
     Parameters
     ----------

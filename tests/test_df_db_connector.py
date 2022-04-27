@@ -5,14 +5,14 @@ from platform import system
 
 from df_engine.core.context import Context
 
-from dff_db_connector.json_connector import JsonConnector
-from dff_db_connector.pickle_connector import PickleConnector
-from dff_db_connector.shelve_connector import ShelveConnector
-from dff_db_connector.dff_db_connector import DffDbConnector, DffAbstractConnector
-from dff_db_connector.sql_connector import SqlConnector, postgres_available, mysql_available, sqlite_available
-from dff_db_connector.redis_connector import RedisConnector, redis_available
-from dff_db_connector.mongo_connector import MongoConnector, mongo_available
-from dff_db_connector import connector_factory
+from df_db_connector.json_connector import JsonConnector
+from df_db_connector.pickle_connector import PickleConnector
+from df_db_connector.shelve_connector import ShelveConnector
+from df_db_connector.df_db_connector import DFDbConnector, DFAbstractConnector
+from df_db_connector.sql_connector import SqlConnector, postgres_available, mysql_available, sqlite_available
+from df_db_connector.redis_connector import RedisConnector, redis_available
+from df_db_connector.mongo_connector import MongoConnector, mongo_available
+from df_db_connector import connector_factory
 
 
 def ping_localhost(port: int, timeout=3):
@@ -37,8 +37,8 @@ MYSQL_ACTIVE = ping_localhost(3307)
 
 
 def generic_test(connector_instance, testing_context, testing_telegram_id):
-    assert isinstance(connector_instance, DffDbConnector)
-    assert isinstance(connector_instance, DffAbstractConnector)
+    assert isinstance(connector_instance, DFDbConnector)
+    assert isinstance(connector_instance, DFAbstractConnector)
     # perform cleanup
     connector_instance.clear()
     assert len(connector_instance) == 0
@@ -60,7 +60,7 @@ def generic_test(connector_instance, testing_context, testing_telegram_id):
 
 
 def test_main(testing_file, testing_context, testing_telegram_id):
-    assert issubclass(DffDbConnector, DffAbstractConnector)
+    assert issubclass(DFDbConnector, DFAbstractConnector)
     connector_instance = connector_factory(f"json://{testing_file}")
     generic_test(connector_instance, testing_context, testing_telegram_id)
 

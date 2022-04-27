@@ -1,7 +1,7 @@
-dff\_db\_connector.pickle\_connector module
+df\_db\_connector.shelve\_connector module
 ===========================================
 
-.. automodule:: dff_db_connector.pickle_connector
+.. automodule:: df_db_connector.shelve_connector
    :members:
    :undoc-members:
    :show-inheritance:

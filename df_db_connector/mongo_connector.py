@@ -1,7 +1,7 @@
 """
 mongo_connector
 ---------------------------
-Provides the mongo-based version of the :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector`.
+Provides the mongo-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
 """
 import json
 from functools import wraps
@@ -15,13 +15,13 @@ try:
 except ImportError:
     mongo_available = False
 
-from .dff_db_connector import DffDbConnector, threadsafe_method
+from .df_db_connector import DFDbConnector, threadsafe_method
 from df_engine.core.context import Context
 
 
-class MongoConnector(DffDbConnector):
+class MongoConnector(DFDbConnector):
     """
-    Implements :py:class:`~dff_db.connector.dff_db_connector.DffDbConnector` with `mongodb` as the database backend.
+    Implements :py:class:`~df_db.connector.df_db_connector.DFDbConnector` with `mongodb` as the database backend.
 
     Parameters
     -----------
