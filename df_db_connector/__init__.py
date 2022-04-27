@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
-__author__ = "Daniil Ignatiev"
-__email__ = "ruthenian8@gmail.com"
+__author__ = "Denis Kuznetsov"
+__email__ = "kuznetosv.den.p@gmail.com"
 __version__ = "0.1"
 
 import importlib
@@ -23,7 +23,7 @@ def connector_factory(path: str, **kwargs):
     """
     mapping = {
         "shelve": {"module": "shelve_connector", "class": "ShelveConnector"},
-        "json": {"module": "json_connector", "class": "JsonConnector"},
+        "json": {"module": "json_connector", "class": "JSONConnector"},
         "pickle": {"module": "pickle_connector", "class": "PickleConnector"},
         "redis": {"module": "redis_connector", "class": "RedisConnector"},
         "mongodb": {"module": "mongo_connector", "class": "MongoConnector"},

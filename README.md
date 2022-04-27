@@ -1,9 +1,9 @@
 
 # DF DB Connector
 
-[DF DB Connector](https://github.com/ruthenian8/df-db-connector) is an extension to the [Dialogflow Framework](https://github.com/deepmipt/dialog_flow_engine), a minimalistic open-source engine for conversational services.
+[DF DB Connector](https://github.com/deepmipt/dialog_flow_db_connector) is an extension to the [Dialogflow Framework](https://github.com/deepmipt/dialog_flow_engine), a minimalistic open-source engine for conversational services.
 
-[DF DB Connector](https://github.com/ruthenian8/df-db-connector) allows you to to save and retrieve user dialogue states (in the form of a `Context` object) using various database backends. 
+[DF DB Connector](https://github.com/deepmipt/dialog_flow_db_connector) allows you to to save and retrieve user dialogue states (in the form of a `Context` object) using various database backends. 
 
 Currently, the supported options are: 
 * [Redis](https://redis.io/)
@@ -15,10 +15,10 @@ Currently, the supported options are:
 Aside from this, we offer some interfaces for saving data to your local file system. These are not meant to be used in production, but can be helpful for prototyping your application.
 
 <!-- [![Documentation Status](https://df-db-connector.readthedocs.io/en/stable/?badge=stable)](https://readthedocs.org/projects/df-db-connector/badge/?version=stable) -->
-<!-- [![Coverage Status](https://coveralls.io/repos/github/ruthenian8/df-db-connector/badge.svg?branch=main)](https://coveralls.io/github/ruthenian8/df-db-connector?branch=main) -->
-[![Codestyle](https://github.com/ruthenian8/df-db-connector/workflows/codestyle/badge.svg)](https://github.com/ruthenian8/df-db-connector)
-[![Tests](https://github.com/ruthenian8/df-db-connector/workflows/test_coverage/badge.svg)](https://github.com/ruthenian8/df-db-connector)
-[![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/ruthenian8/df-db-connector/blob/main/LICENSE)
+<!-- [![Coverage Status](https://coveralls.io/repos/github/deepmipt/dialog_flow_db_connector/badge.svg?branch=main)](https://coveralls.io/github/deepmipt/dialog_flow_db_connector?branch=main) -->
+[![Codestyle](https://github.com/deepmipt/dialog_flow_db_connector/workflows/codestyle/badge.svg)](https://github.com/deepmipt/dialog_flow_db_connector)
+[![Tests](https://github.com/deepmipt/dialog_flow_db_connector/workflows/test_coverage/badge.svg)](https://github.com/deepmipt/dialog_flow_db_connector)
+[![License Apache 2.0](https://img.shields.io/badge/license-Apache%202.0-blue.svg)](https://github.com/deepmipt/dialog_flow_db_connector/blob/main/LICENSE)
 ![Python 3.6, 3.7, 3.8, 3.9](https://img.shields.io/badge/python-3.6%20%7C%203.7%20%7C%203.8%20%7C%203.9-green.svg)
 <!-- [![PyPI](https://img.shields.io/pypi/v/df-db-connector)](https://pypi.org/project/df-db-connector/)
 [![Downloads](https://pepy.tech/badge/df-db-connector)](https://pepy.tech/project/df-db-connector) -->
@@ -62,8 +62,8 @@ def handle_request(request):
 
 ```
 
-To get more advanced examples, take a look at [examples](https://github.com/ruthenian8/df-db-connector/tree/main/examples) on GitHub.
+To get more advanced examples, take a look at [examples](https://github.com/deepmipt/dialog_flow_db_connector/tree/main/examples) on GitHub.
 
 # Contributing to the DF DB Connector
 
-Please refer to [CONTRIBUTING.md](https://github.com/ruthenian8/df-db-connector/blob/main/CONTRIBUTING.md).
+Please refer to [CONTRIBUTING.md](https://github.com/deepmipt/dialog_flow_db_connector/blob/main/CONTRIBUTING.md).

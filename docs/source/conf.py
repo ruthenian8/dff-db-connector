@@ -18,9 +18,9 @@ sys.path.insert(0, os.path.abspath("../.."))
 
 # -- Project information -----------------------------------------------------
 
-project = "DF DB Connector"
-copyright = "Daniil Ignatiev"
-author = "Daniil Ignatiev"
+project = "Dialog Flow DB Connector"
+copyright = "Denis Kuznetsov"
+author = "Denis Kuznetsov"
 
 # The full version, including alpha/beta/rc tags
 release = "0.1"

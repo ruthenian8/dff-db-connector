@@ -1,18 +1,18 @@
 """
 pickle_connector
 ---------------------------
-Provides the pickle-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
+Provides the pickle-based version of the :py:class:`~df_db.connector.db_connector.DBConnector`.
 """
 import pickle
 import os
 
-from .df_db_connector import DFDbConnector, threadsafe_method
+from .db_connector import DBConnector, threadsafe_method
 from df_engine.core.context import Context
 
 
-class PickleConnector(DFDbConnector):
+class PickleConnector(DBConnector):
     """
-    Implements :py:class:`~df_db.connector.df_db_connector.DFDbConnector` with `pickle` as driver.
+    Implements :py:class:`~df_db.connector.db_connector.DBConnector` with `pickle` as driver.
 
     Parameters
     -----------
@@ -22,7 +22,7 @@ class PickleConnector(DFDbConnector):
     """
 
     def __init__(self, path: str):
-        DFDbConnector.__init__(self, path)
+        DBConnector.__init__(self, path)
 
         self._load()
 

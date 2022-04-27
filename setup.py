@@ -38,7 +38,7 @@ setup(
     description=description,
     long_description=long_description,
     long_description_content_type="text/markdown",
-    url="https://github.com/ruthenian8/df-db-connector",
+    url="https://github.com/deepmipt/dialog_flow_db_connector",
     author="Daniil Ignatiev",
     author_email="ruthenian8@gmail.com",
     classifiers=[  # Optional

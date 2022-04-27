@@ -2,14 +2,13 @@
 sql_connector
 ---------------------------
 
-| Provides the sql-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
+| Provides the sql-based version of the :py:class:`~df_db.connector.db_connector.DBConnector`.
 | You can choose the backend option of your liking from mysql, postgresql, or sqlite.
 
 """
-import json
 import importlib
 
-from .df_db_connector import DFDbConnector, threadsafe_method
+from .db_connector import DBConnector, threadsafe_method
 from df_engine.core.context import Context
 
 try:
@@ -57,9 +56,9 @@ def import_insert_for_dialect(dialect: str):
     )
 
 
-class SqlConnector(DFDbConnector):
+class SqlConnector(DBConnector):
     """
-    | Sql-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
+    | Sql-based version of the :py:class:`~df_db.connector.db_connector.DBConnector`.
     | Compatible with MySQL, Postgresql, Sqlite.
 
     Parameters

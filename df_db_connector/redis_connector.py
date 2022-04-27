@@ -1,7 +1,7 @@
 """
 redis_connector
 ---------------------------
-Provides the redis-based version of the :py:class:`~df_db.connector.df_db_connector.DFDbConnector`.
+Provides the redis-based version of the :py:class:`~df_db.connector.db_connector.DBConnector`.
 """
 import json
 
@@ -12,13 +12,13 @@ try:
 except ImportError:
     redis_available = False
 
-from .df_db_connector import DFDbConnector, threadsafe_method
+from .db_connector import DBConnector, threadsafe_method
 from df_engine.core.context import Context
 
 
-class RedisConnector(DFDbConnector):
+class RedisConnector(DBConnector):
     """
-    Implements :py:class:`~df_db.connector.df_db_connector.DFDbConnector` with `redis` as the database backend.
+    Implements :py:class:`~df_db.connector.db_connector.DBConnector` with `redis` as the database backend.
 
     Parameters
     -----------

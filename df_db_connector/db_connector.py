@@ -1,9 +1,9 @@
 """
-df_db_connector
+db_connector
 ---------------------------
 | Base module. Provided classes:
-| Abstract connector interface :py:class:`~df_db.connector.df_db_connector.DFAbstractConnector`. 
-| An intermediate class to inherit from: :py:class:`~df_db.connector.df_db_connector.DFDbConnector`
+| Abstract connector interface :py:class:`~df_db.connector.db_connector.DFAbstractConnector`. 
+| An intermediate class to inherit from: :py:class:`~df_db.connector.db_connector.DBConnector`
 
 """
 import threading
@@ -53,10 +53,10 @@ class DFAbstractConnector(ABC):
         raise NotImplementedError
 
 
-class DFDbConnector(DFAbstractConnector):
+class DBConnector(DFAbstractConnector):
     """
     An intermediate class between the abstract connector interface,
-    :py:class:`~df_db.connector.df_db_connector.DFAbstractConnector`, and concrete implementations.
+    :py:class:`~df_db.connector.db_connector.DFAbstractConnector`, and concrete implementations.
 
     Parameters
     ----------
