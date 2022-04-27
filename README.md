@@ -1,7 +1,7 @@
 
 # Dialog Flow DB Connector
 
-[DF DB Connector](https://github.com/deepmipt/dialog_flow_db_connector) is an extension to the [Dialog Flow Framework](https://github.com/deepmipt/dialog_flow_engine), a minimalistic open-source engine for conversational services.
+[DF DB Connector](https://github.com/deepmipt/dialog_flow_db_connector) is an addon for the [Dialog Flow Framework](https://github.com/deepmipt/dialog_flow_engine), a minimalistic open-source engine for conversational services.
 
 [DF DB Connector](https://github.com/deepmipt/dialog_flow_db_connector) allows you to to save and retrieve user dialogue states (in the form of a `Context` object) using various database backends. 
 
