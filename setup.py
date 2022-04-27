@@ -39,7 +39,7 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     url="https://github.com/deepmipt/dialog_flow_db_connector",
-    author="Denis Kuznetsov",
+    author="Denis Kuznetsov, Daniil Ignatiev",
     author_email="kuznetsov.den.p@gmail.com",
     classifiers=[  # Optional
         #   3 - Alpha
