@@ -41,10 +41,10 @@ pip install df-db-connector[sqlite]
 ## Basic example
 ```python
 from df_engine.core import Context, Actor
-from df_db_connector import SqlConnector
+from df_db_connector import SQLConnector
 from .script import some_df_script
 
-db = SqlConnector("postgresql://user:password@host:port/dbname")
+db = SQLConnector("postgresql://user:password@host:port/dbname")
 
 actor = Actor(some_df_script, start_label=("root", "start"), fallback_label=("root", "fallback"))
 

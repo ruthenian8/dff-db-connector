@@ -56,7 +56,7 @@ def import_insert_for_dialect(dialect: str):
     )
 
 
-class SqlConnector(DBConnector):
+class SQLConnector(DBConnector):
     """
     | Sql-based version of the :py:class:`~df_db.connector.db_connector.DBConnector`.
     | Compatible with MySQL, Postgresql, Sqlite.
@@ -76,7 +76,7 @@ class SqlConnector(DBConnector):
     """
 
     def __init__(self, path: str, table_name: str = "contexts", custom_driver: bool = False):
-        super(SqlConnector, self).__init__(path)
+        super(SQLConnector, self).__init__(path)
 
         self._check_availability(custom_driver)
         self.engine = create_engine(self.full_path)
@@ -163,7 +163,7 @@ class SqlConnector(DBConnector):
     def _check_availability(self, custom_driver: bool) -> None:
         if not custom_driver:
             if self.full_path.startswith("postgresql") and not postgres_available:
-                raise ImportError("Packages `sqlalchemy` and/or `psycopg2` are missing.")
+                raise ImportError("Packages `sqlalchemy` and/or `psycopg2-binary` are missing.")
             elif self.full_path.startswith("mysql") and not mysql_available:
                 raise ImportError("Packages `sqlalchemy` and/or `pymysql` are missing.")
             elif self.full_path.startswith("sqlite") and not sqlite_available:

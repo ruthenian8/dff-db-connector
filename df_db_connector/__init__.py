@@ -27,9 +27,9 @@ def connector_factory(path: str, **kwargs):
         "pickle": {"module": "pickle_connector", "class": "PickleConnector"},
         "redis": {"module": "redis_connector", "class": "RedisConnector"},
         "mongodb": {"module": "mongo_connector", "class": "MongoConnector"},
-        "mysql": {"module": "sql_connector", "class": "SqlConnector"},
-        "postgresql": {"module": "sql_connector", "class": "SqlConnector"},
-        "sqlite": {"module": "sql_connector", "class": "SqlConnector"},
+        "mysql": {"module": "sql_connector", "class": "SQLConnector"},
+        "postgresql": {"module": "sql_connector", "class": "SQLConnector"},
+        "sqlite": {"module": "sql_connector", "class": "SQLConnector"},
     }
     prefix, _, _ = path.partition("://")
     if "sql" in prefix:

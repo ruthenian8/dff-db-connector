@@ -8,8 +8,8 @@ from df_engine.core.context import Context
 from df_db_connector.json_connector import JSONConnector
 from df_db_connector.pickle_connector import PickleConnector
 from df_db_connector.shelve_connector import ShelveConnector
-from df_db_connector.df_db_connector import DBConnector, DFAbstractConnector
-from df_db_connector.sql_connector import SqlConnector, postgres_available, mysql_available, sqlite_available
+from df_db_connector.db_connector import DBConnector, DFAbstractConnector
+from df_db_connector.sql_connector import SQLConnector, postgres_available, mysql_available, sqlite_available
 from df_db_connector.redis_connector import RedisConnector, redis_available
 from df_db_connector.mongo_connector import MongoConnector, mongo_available
 from df_db_connector import connector_factory
@@ -106,7 +106,7 @@ def test_redis(testing_context, testing_telegram_id):
 @pytest.mark.skipif(POSTGRES_ACTIVE == False, reason="Postgres server not running")
 @pytest.mark.skipif(postgres_available == False, reason="Postgres dependencies missing")
 def test_postgres(testing_context, testing_telegram_id):
-    connector_instance = SqlConnector(
+    connector_instance = SQLConnector(
         "postgresql://{}:{}@localhost:5432/{}".format(os.getenv("PG_USERNAME"), os.getenv("PG_PASSWORD"), "test")
     )
     generic_test(connector_instance, testing_context, testing_telegram_id)
@@ -115,7 +115,7 @@ def test_postgres(testing_context, testing_telegram_id):
 @pytest.mark.skipif(sqlite_available == False, reason="Sqlite dependencies missing")
 def test_sqlite(testing_file, testing_context, testing_telegram_id):
     separator = "///" if system() == "Windows" else "////"
-    connector_instance = SqlConnector(f"sqlite:{separator}{testing_file}")
+    connector_instance = SQLConnector(f"sqlite:{separator}{testing_file}")
 
     generic_test(connector_instance, testing_context, testing_telegram_id)
 
@@ -123,7 +123,7 @@ def test_sqlite(testing_file, testing_context, testing_telegram_id):
 @pytest.mark.skipif(MYSQL_ACTIVE == False, reason="Mysql server not running")
 @pytest.mark.skipif(mysql_available == False, reason="Mysql dependencies missing")
 def test_mysql(testing_context, testing_telegram_id):
-    connector_instance = SqlConnector(
+    connector_instance = SQLConnector(
         "mysql+pymysql://{}:{}@localhost:3307/{}".format(
             os.getenv("MYSQL_USERNAME"), os.getenv("MYSQL_PASSWORD"), "test"
         )
